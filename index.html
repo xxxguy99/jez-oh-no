@@ -174,6 +174,9 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
 .tutPic .fake{padding:8px 16px;border-radius:10px;background:#ffd84d;color:#222;font-weight:800}.tutPic .oh{padding:7px 14px;border-radius:20px;background:#ff1744;outline:3px solid #ffd84d;color:#fff;font-weight:800}
 .tutPic img{height:44px}
 #tutNav{display:flex;gap:8px;align-items:center}#tutNav button{flex:1;padding:10px}#tutNav #tutDots{flex:1.2;text-align:center;font-size:13px;opacity:.8}#tutClose{position:absolute;right:10px;top:8px;background:transparent;color:#fff;font-size:22px;padding:4px 8px}
+#stackHint{display:none;position:fixed;left:50%;transform:translateX(-50%);z-index:47;max-width:min(94vw,640px);padding:6px 14px;border-radius:14px;background:#b71c1cee;color:#fff;font-size:15px;font-weight:600;line-height:1.35;text-align:center;border:2px solid #ffd84d;box-shadow:0 0 14px #ff1744aa;animation:stackPulse 1.2s ease-in-out infinite}#stackHint b{color:#ffd84d;font-size:18px}#stackHint u{text-decoration:none;background:#ffd84d;color:#222;border-radius:8px;padding:1px 6px;white-space:nowrap}
+@keyframes stackPulse{50%{box-shadow:0 0 24px #ff1744}}
+#hand.stacked .card.dim{filter:brightness(.45) saturate(.4)}#hand.stacked .card.legal{box-shadow:0 0 14px #ffd84d,0 0 4px #fff,-2px 2px 6px #0007}
 </style></head><body>
 <div id="setup" class="screen on">
   <h1>JEZ-OH-NO</h1>
@@ -206,7 +209,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
     <div id="lobby"><div id="lobbyTxt"></div><button id="beginBtn">เริ่มเกม (เจ้าภาพ)</button></div>
   </div>
   <div id="log"></div>
-  <div id="meBadge"></div><div id="volBox" title="ระดับเสียงเพลง"><span id="volIco">🔊</span><input id="volRange" type="range" min="0" max="100" step="5" aria-label="ระดับเสียงเพลง"></div><div id="meIcon"></div><div id="hand"></div>
+  <div id="meBadge"></div><button id="stackHint" type="button"></button><div id="volBox" title="ระดับเสียงเพลง"><span id="volIco">🔊</span><input id="volRange" type="range" min="0" max="100" step="5" aria-label="ระดับเสียงเพลง"></div><div id="meIcon"></div><div id="hand"></div>
   <div id="bar"><button id="drawBtn">จั่ว</button><button id="passBtn">ผ่าน</button><button id="menuBtn" style="flex:.5;background:#ccc">☰</button></div>
 </div>
 <div id="ohno" role="button"><span>OH-NO</span></div>
@@ -829,6 +832,17 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
     $('drawBtn').textContent = r.pending ? 'รับไพ่ +' + r.pending.amount : 'จั่ว';
     $('passBtn').disabled = !myTurn || !!r.pending || !r.hasDrawn;
     $('ohno').classList.toggle('hot', !!r.ohnoDue[ME]);
+    // a +stack is aimed at me: say so right above my plate (also a tap target to take it) and dim every card that cannot answer it
+    var sh = $('stackHint'), stk = myTurn && r.pending && r.finished.indexOf(ME) < 0;
+    $('hand').classList.toggle('stacked', !!stk);
+    if (sh) { if (!stk) sh.style.display = 'none'; else {
+      var CN = { R: 'แดง', Y: 'เหลือง', G: 'เขียว', B: 'น้ำเงิน' }, tp = R.top(S), opts = ['+' + { d2: 2, d3: 3, d4: 4 }[r.pending.type]];
+      opts.push((tp.k === 'skip' ? 'ข้าม' : 'ข้าม' + (CN[r.color] ? 'สี' + CN[r.color] : '')));
+      opts.push((tp.k === 'rev' ? 'กลับ' : 'กลับ' + (CN[r.color] ? 'สี' + CN[r.color] : '')));
+      sh.innerHTML = '<b>โดน +' + r.pending.amount + '!</b> ' + (R.legalPlays(S, ME).length ? 'สวนด้วย ' + opts.join(' / ') + ' หรือ ' : 'ไม่มีไพ่สวน ') + '<u>แตะรับไพ่ +' + r.pending.amount + '</u>';
+      sh.style.display = 'block'; var mb = $('meBadge').getBoundingClientRect(), hb = $('hand').getBoundingClientRect(), y = (mb.height ? mb.top : hb.top) - 6;
+      sh.style.bottom = (window.innerHeight - y) + 'px';
+    } }
   }
   // ---- hand fan + drag-to-reorder ----
   var handOrder = [], drag = null;
@@ -1111,6 +1125,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
   }
 
   $('drawBtn').onclick = function () { dispatch({ type: 'draw', pid: ME }); };
+  $('stackHint').onclick = function () { if (!busy()) dispatch({ type: 'draw', pid: ME }); };
   $('passBtn').onclick = function () { dispatch({ type: 'pass', pid: ME }); };
   $('menuBtn').onclick = showScores;
   // OH-NO: moved by JS transform (hit box == visual box, incl. 22px invisible padding), pointerdown for instant hit
