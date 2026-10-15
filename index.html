@@ -632,6 +632,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
     var S_old = S; S = res.state;
     var drew = [];
     res.events.forEach(function (e) {
+      if (e.t === 'play') TOPOWN[e.card.id] = e.pid; else if (e.t === 'roundStart') TOPOWN = {};
       var d = describe(e); if (d) log(d);
       if (e.pid === ME && (e.t === 'illegal' || e.t === 'bounce' || e.t === 'ohnoPenalty')) toast(d, 2000);
       if (DRAWEV[e.t] && drew.indexOf(e.pid) < 0) drew.push(e.pid);
@@ -995,7 +996,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
   function renderMeBadge() { // the player's own name plate, centred just above the hand bar; treated as a LEFT seat (icons / emotes / OH-NO after it)
     var e = $('meBadge'), ic = S && rankIcon(ME), r = S && S.round, ii = $('meIcon'); if (!e) return;
     if (!r) { e.style.display = 'none'; $('volBox').classList.remove('on'); if (ii) ii.innerHTML = ''; return; }
-    var turn = r.phase === 'playing' && r.turn === ME, oh = !!(r.ohnoCalled[ME] && r.hands[ME].length === 1);
+    var turn = r.phase === 'playing' && hlOn(ME), oh = !!(r.ohnoCalled[ME] && r.hands[ME].length === 1);
     e.className = (turn ? 'turn' : '') + (oh ? ' ohglow' : ''); e.dataset.pid = ME;
     e.innerHTML = S.players[ME].name + ' <b>🂠' + r.hands[ME].length + '</b>' + (r.ohnoCalled[ME] ? '📣' : '') + (r.ohnoDue[ME] ? '❗' : '');
     e.style.display = 'block'; var hb = $('hand').getBoundingClientRect(); e.style.top = (hb.top - e.offsetHeight - 6) + 'px'; var vb = $('volBox'); vb.classList.add('on'); vb.style.top = (hb.top - e.offsetHeight - 6 + e.offsetHeight / 2 - 15) + 'px'; /* music slider: right side, level with my plate */
@@ -1013,7 +1014,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
       return { p: p, q: { x: h[0], y: h[1] - 120 * s, s: s, side: q0.side, oy: q0.y, os: q0.s } }; });
     list.sort(function (a, b) { return a.q.y - b.q.y; }); // far first
     list.forEach(function (o, z) {
-      var p = o.p, q = o.q, turn = r && r.phase === 'playing' && r.turn === p.id, fin = r && r.finished.indexOf(p.id) >= 0;
+      var p = o.p, q = o.q, turn = r && r.phase === 'playing' && hlOn(p.id), fin = r && r.finished.indexOf(p.id) >= 0;
       SEATPOS[p.id] = { x: q.x, y: q.y, s: q.s, side: q.side };
       var d = document.createElement('div');
       d.className = 'seat ' + q.side + (turn ? ' turn' : '') + (fin ? ' fin' : '') + (r && r.ohnoCalled[p.id] && r.hands[p.id].length === 1 ? ' ohglow' : ''); // pressed OH-NO and still holding exactly 1 card
@@ -1077,6 +1078,11 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
   // ---- bots ----
   var DIFF = 'hard';
   function rand(a, b) { return a + Math.random() * (b - a); }
+  // name-plate highlight (yellow plate) = ALWAYS the owner of the card on top of the centre pile; additionally my own plate while it's my turn.
+  // Round start: the opening card has no owner -> no plate lit until the first play (except mine when it's my turn).
+  var TOPOWN = {};
+  function topOwner() { var r = S && S.round; if (!r || r.phase !== 'playing') return null; var t = R.top(S); return t && TOPOWN[t.id] != null ? TOPOWN[t.id] : null; }
+  function hlOn(pid) { var r = S && S.round; if (!r || r.phase !== 'playing') return false; return topOwner() === pid || (pid === ME && r.turn === ME && r.finished.indexOf(ME) < 0); }
   function schedule() {
     timers.forEach(clearTimeout); timers = [];
     var r = S.round; if (r.phase !== 'playing' || busy()) return;
