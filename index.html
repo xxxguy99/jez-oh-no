@@ -164,19 +164,29 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
 #deckOpts{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:6px;align-items:center;background:#0006;padding:8px 10px;border-radius:10px}#deckOpts span{font-size:15px}#deckOpts label{padding:4px 6px;gap:4px;font-weight:800;color:#ffd84d;background:#0004}#deckOpts select{width:auto;flex:1;padding:4px;font-size:15px}
 #volBox{position:fixed;right:6px;z-index:46;display:none;align-items:center;gap:2px;background:#0008;border:1px solid #d9a44188;border-radius:14px;padding:2px 8px 2px 6px;touch-action:none}#game.screen.on~#volBox,#volBox.on{display:flex}#volIco{font-size:16px;line-height:1;cursor:pointer}#volRange{width:84px;height:26px;padding:0;margin:0;accent-color:#ffd84d;background:transparent}
 #seats .rkout img.buff{height:2.3em!important;width:3.2em!important;filter:drop-shadow(0 0 2px #ffd84d) drop-shadow(0 0 4px #ff9800) drop-shadow(0 2px 2px #000)!important}#meIcon img.buff{height:2em!important;width:2.8em!important;filter:drop-shadow(0 0 2px #ffd84d) drop-shadow(0 0 4px #ff9800) drop-shadow(0 2px 2px #000)!important}#meBadge img.buff{height:1.6em!important}
+
+#picker .pkAct{display:flex;flex-direction:column;gap:6px;padding:0;background:transparent;border:0;justify-content:stretch}#picker .pkAct button{flex:1;margin:0;padding:6px 4px;font-size:17px;line-height:1.15;border-radius:12px;min-height:44px}#picker .pkAct #startBtn{flex:1.6;font-size:19px;box-shadow:0 0 10px #ffd84d88}#picker .pkAct #startBtn:disabled{opacity:.45;box-shadow:none}#tutBtn{background:#4fc3f7}
+#tut .box{width:min(94vw,520px);max-height:92vh;display:flex;flex-direction:column;gap:10px;padding:16px;background:#14301f;color:#fff;border:2px solid #ffd84d;border-radius:16px;box-sizing:border-box}
+#tut h3{margin:0;color:#ffd84d;font-size:21px}#tutBody{overflow:auto;font-size:16px;line-height:1.5}#tutBody p{margin:6px 0}#tutBody b{color:#ffd84d}
+.tutPic{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;background:#0b1f14;border-radius:12px;padding:10px;margin:4px 0}
+.tutPic .card{width:52px;height:76px;font-size:20px;border-width:3px;box-shadow:0 3px 6px #0008}.tutPic .lbl{font-size:13px;opacity:.85;text-align:center}.tutPic .cell{display:flex;flex-direction:column;align-items:center;gap:3px}
+.tutPic .ok{color:#69f0ae;font-weight:800}.tutPic .no{color:#ff5252;font-weight:800}.tutPic .arr{font-size:26px;color:#ffd84d}
+.tutPic .fake{padding:8px 16px;border-radius:10px;background:#ffd84d;color:#222;font-weight:800}.tutPic .oh{padding:7px 14px;border-radius:20px;background:#ff1744;outline:3px solid #ffd84d;color:#fff;font-weight:800}
+.tutPic img{height:44px}
+#tutNav{display:flex;gap:8px;align-items:center}#tutNav button{flex:1;padding:10px}#tutNav #tutDots{flex:1.2;text-align:center;font-size:13px;opacity:.8}#tutClose{position:absolute;right:10px;top:8px;background:transparent;color:#fff;font-size:22px;padding:4px 8px}
 </style></head><body>
 <div id="setup" class="screen on">
   <h1>JEZ-OH-NO</h1>
   <label id="nameRow">ชื่อของคุณ <input id="sName" maxlength="16" value="ทุย" placeholder="ทุย" autocomplete="off"></label>
   <div id="pickHead">เลือกคนร่วมโต๊ะ (1–8 คน) <b id="pickN">0/8</b></div>
   <div id="picker"></div>
-  <label>ความยาก <select id="sDiff"><option value="easy">ง่าย (บอทคิด 5 วิขึ้นไป)</option><option value="hard" selected>ยาก (บอทลง 1–3 วิ, ตัด 2–5 วิ)</option></select></label>
+  <label>ความยาก <select id="sDiff"><option value="easy">ง่าย (บอทคิด 3–6 วิ)</option><option value="hard" selected>ยาก (บอทลง 1–3 วิ, ตัดทุกครั้ง 2–3 วิ)</option></select></label>
   <label>โหมด <select id="sMode"><option value="1">1: หาที่โหล่ (แต้มอันดับ)</option><option value="2">2: นับคะแนนไพ่</option></select></label>
-  <div id="deckOpts"><span>ไพ่บวกในกอง</span><label>+2 <select id="sD2"><option value="4" selected>4 ใบ</option><option value="5">5 ใบ</option><option value="6">6 ใบ</option><option value="7">7 ใบ</option><option value="8">8 ใบ</option></select></label><label>+3 <select id="sD3"><option value="4" selected>4 ใบ</option><option value="5">5 ใบ</option><option value="6">6 ใบ</option><option value="7">7 ใบ</option><option value="8">8 ใบ</option></select></label><label>+4 <select id="sD4"><option value="4" selected>4 ใบ</option><option value="5">5 ใบ</option><option value="6">6 ใบ</option><option value="7">7 ใบ</option><option value="8">8 ใบ</option></select></label></div>
+  <div id="deckOpts"><span>ไพ่บวกในกอง</span><label>+2 <select id="sD2"><option value="8" selected>8 ใบ</option><option value="9">9 ใบ</option><option value="10">10 ใบ</option><option value="11">11 ใบ</option><option value="12">12 ใบ</option><option value="13">13 ใบ</option><option value="14">14 ใบ</option><option value="15">15 ใบ</option><option value="16">16 ใบ</option></select></label><label>+3 <select id="sD3"><option value="8" selected>8 ใบ</option><option value="9">9 ใบ</option><option value="10">10 ใบ</option><option value="11">11 ใบ</option><option value="12">12 ใบ</option><option value="13">13 ใบ</option><option value="14">14 ใบ</option><option value="15">15 ใบ</option><option value="16">16 ใบ</option></select></label><label>+4 <select id="sD4"><option value="4" selected>4 ใบ</option><option value="5">5 ใบ</option><option value="6">6 ใบ</option><option value="7">7 ใบ</option><option value="8">8 ใบ</option></select></label></div>
   <label>จำนวนรอบ (0 = เล่นเรื่อยๆ) <input id="sRounds" type="number" min="0" value="0"></label>
   <label>เป้าแต้ม (0 = ไม่ตั้ง) <input id="sTarget" type="number" min="0" value="0"></label>
-  <button id="startBtn" disabled>ไปที่โต๊ะ</button>
-  <p style="font-size:12px;opacity:.7">ปุ่ม OH-NO จะโผล่ที่สุ่มทีละ ~1 วิ ต้องแตะให้โดนเมื่อเหลือไพ่ใบเดียว ไม่งั้นโดนจั่ว 5 เมื่อมีคนลงไพ่ใบถัดไป</p>
+  <button id="startBtn" disabled>ไปที่โต๊ะ ▶</button><button id="tutBtn">📖 วิธีเล่น</button>
+  <p style="font-size:12px;opacity:.7">ปุ่ม OH-NO จะโผล่-หายแบบสุ่มที่แถบด้านบนจอ ต้องแตะให้โดนเมื่อเหลือไพ่ใบเดียว ไม่งั้นโดนจั่ว 5 เมื่อมีคนลงไพ่ใบถัดไป</p>
   <!-- phase 2 (online): own name + gender entry, stashed -->
   <template id="phase2NameSetup">
     <label>ชื่อของคุณ <input id="sName" value="ฉัน"></label>
@@ -202,6 +212,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
 <div id="ohno" role="button"><span>OH-NO</span></div>
 <div id="colorModal" class="modal"><div class="box"><h3>+4 เลือกสีใหม่</h3><div class="colors" id="colorBtns"></div><button id="colorCancel" style="width:100%;margin-top:10px;background:#ccc">ยกเลิก</button></div></div>
 <div id="scoreModal" class="modal"><div class="box" id="scoreBox"></div></div>
+<div id="tut" class="modal"><div class="box" style="position:relative"><button id="tutClose" aria-label="ปิด">✕</button><h3 id="tutTitle"></h3><div id="tutBody"></div><div id="tutNav"><button id="tutBack" style="background:#ccc">◀ ย้อน</button><span id="tutDots"></span><button id="tutNext">ถัดไป ▶</button></div></div></div>
 <div id="toast"></div>
 <script>
 /* JEZ-OH-NO rules engine — pure, deterministic (seeded RNG in state), no DOM.
@@ -215,9 +226,9 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
   'use strict';
   var COLORS = ['R', 'Y', 'G', 'B'];
   var RANKS = ['A','B','C','D','E','F','G','H','I','J']; // value 1..10, A<...<J
-  var TOTAL = 108; // default deck: 96 + 4x(+2) + 4x(+3) + 4x(+4); see deckSize()
+  var TOTAL = 116; // default deck: 96 + 8x(+2) + 8x(+3) + 4x(+4); see deckSize()
 
-  function deckOpts(o) { var c = function (v) { v = v | 0; return v >= 4 && v <= 8 ? v : 4; }; o = o || {}; return { d2: c(o.d2), d3: c(o.d3), d4: c(o.d4) }; } // home-page options: +2 / +3 / +4 counts, 4..8 each (default 4)
+  function deckOpts(o) { var c = function (v, lo, hi, df) { v = v | 0; return v >= lo && v <= hi ? v : df; }; o = o || {}; return { d2: c(o.d2, 8, 16, 8), d3: c(o.d3, 8, 16, 8), d4: c(o.d4, 4, 8, 4) }; } // home-page options: +2 / +3 counts 8..16 (default 8), +4 count 4..8 (default 4)
   function buildDeck(opt) {
     var o = deckOpts(opt), d = [], id = 0;
     for (var copy = 0; copy < 2; copy++) COLORS.forEach(function (c) {
@@ -1066,14 +1077,14 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
       if (r.ohnoDue[id] && Math.random() < 0.85) timers.push(setTimeout(function () { dispatch({ type: 'ohno', pid: id }); }, rand(300, 2200)));
       // twin cut: one shot per top card, NOT cancelled → late cutters bounce
       var key = id + ':' + top.id;
-      if (id !== r.turn && !cutTimers[key] && R.legalPlays(S, id).length && Math.random() < 0.5) {
+      if (id !== r.turn && !cutTimers[key] && R.legalPlays(S, id).length && (DIFF !== 'easy' || Math.random() < 0.5)) {
         var a = R.botAction(S, id, { allowCut: true });
-        cutTimers[key] = setTimeout(function go() { if (busy()) return waitQ.push(go); if (S.round.phase === 'playing') dispatch(a); }, (DIFF === 'easy' ? rand(5000, 6500) : rand(2000, 5000))); // cut-in: easy >= 5 s after it becomes possible, hard 2-5 s
+        cutTimers[key] = setTimeout(function go() { if (busy()) return waitQ.push(go); if (S.round.phase === 'playing') dispatch(a); }, (DIFF === 'easy' ? rand(2000, 6500) : rand(2000, 3000))); // cut-in: easy 50% chance, 2-6.5 s; hard always, 2-3 s
       }
     });
     if (S.players[r.turn].isBot) {
       var botDuel = r.finished.indexOf(ME) >= 0 && S.players.length - r.finished.length === 2; // I'm out and only two bots are left fighting: brisk 1-2 s per action
-      var delay = botDuel ? rand(1000, 2000) : (DIFF === 'easy' ? rand(5000, 6000) : rand(1000, 3000)) + (r.ohnoDue[ME] ? 1200 : 0); // own turn: easy >= 5 s, hard 1-3 s
+      var delay = botDuel ? rand(1000, 2000) : (DIFF === 'easy' ? rand(3000, 6000) : rand(1000, 3000)) + (r.ohnoDue[ME] ? 1200 : 0); // own turn: easy 3-6 s, hard 1-3 s
       timers.push(setTimeout(function () { botAct(r.turn); }, delay));
     }
   }
@@ -1088,27 +1099,24 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
   // OH-NO: moved by JS transform (hit box == visual box, incl. 22px invisible padding), pointerdown for instant hit
   // OH-NO: pops up at a random spot for ~1s, vanishes instantly, reappears elsewhere.
   // Never over the centre card, draw pile, staged draws or the hand fan. Hit box == visual box (22px padding).
-  var ob = $('ohno'), OH_SHOW = 1000, OH_GAP = 180;
+  var ob = $('ohno');
   function hit(a, b) { return !(a.r < b.left || a.l > b.right || a.b < b.top || a.t > b.bottom); }
   function tableRect() { // final (un-animated) discard area in screen coords (keep in sync with #table css: 353,196 324x320)
     var L = $('layer').getBoundingClientRect(), k = L.width / 1024;
     return { left: L.left + 353 * k, top: L.top + 196 * k, right: L.left + 677 * k, bottom: L.top + 516 * k, width: 324 * k };
   }
-  function placeOhno() {
-    var w = (ob.offsetWidth || 130) + 10, h = (ob.offsetHeight || 92) + 6, W = window.innerWidth, H = window.innerHeight;
-    var phone = W < 600, avoid = [$('table'), $('hand'), $('bar'), $('drawZone'), $('ringStrip'), $('meBadge'), $('volBox')].concat([].slice.call(document.querySelectorAll(phone ? '#seats .tag' : '#seats .tag, #seats .seat .sp img'))); // phone: no room around the people, so it may hop over bodies (never over plates, cards, hand or buttons) // table = current card + draw pile + staged draws
-    avoid = avoid.map(function (e) { var r = e === $('table') ? tableRect() : e.getBoundingClientRect(); return { left: r.left - 6, right: r.right + 6, top: r.top - 6, bottom: r.bottom + 6, w: r.width }; }).filter(function (r) { return r.w > 0; });
-    var maxY = Math.max(0, H - h), best = null, fb = null;
-    for (var i = 0; i < 60; i++) {
-      var x = Math.random() * Math.max(0, W - w), y = 4 + Math.random() * Math.max(0, maxY - 4);
-      var box = { l: x, t: y, r: x + w, b: y + h }, nh = avoid.filter(function (a) { return hit(box, a); }).length;
-      if (!nh) { best = box; break; }
-      if (!fb || nh < fb.n) fb = { l: x, t: y, n: nh };
+  function placeOhno() { // OH-NO hops only along the TOP edge, outside the play scene: the blurred band above the room (phone) / the top strip of the window (desktop, where the room fills the screen)
+    var w = (ob.offsetWidth || 105) + 4, h = (ob.offsetHeight || 58) + 4, W = window.innerWidth;
+    var band = Math.max(0, $('layer').getBoundingClientRect().top), ymax = Math.max(4, band - h); // whole hit area (incl. padding) stays above the scene when there is room
+    var avoid = [$('ringStrip'), $('volBox'), $('meBadge')].concat([].slice.call(document.querySelectorAll('#seats .tag'))).map(function (e) { var r = e.getBoundingClientRect(); return { left: r.left - 4, right: r.right + 4, top: r.top - 4, bottom: r.bottom + 4, w: r.width }; }).filter(function (r) { return r.w > 0; });
+    var best = null;
+    for (var i = 0; i < 40 && !best; i++) {
+      var x = 4 + Math.random() * Math.max(0, W - w - 8), y = 4 + Math.random() * (ymax - 4), box = { l: x, t: y, r: x + w, b: y + h };
+      if (!avoid.some(function (a) { return hit(box, a); })) best = box;
     }
-    if (!best && fb && fb.n <= 1 && !hit({ l: fb.l, t: fb.t, r: fb.l + w, b: fb.t + h }, avoid[1]) && !hit({ l: fb.l, t: fb.t, r: fb.l + w, b: fb.t + h }, avoid[2])) best = fb; // least-covering spot, never over hand / buttons
-    if (!best) best = { l: 0, t: H * 0.08 }; // fallback: top-left corner (above the table)
+    if (!best) best = { l: 4 + Math.random() * Math.max(0, W - w - 8), t: 4 };
     ob.style.transform = 'translate(' + best.l + 'px,' + best.t + 'px)'; ob.style.visibility = 'visible';
-    ob._t = setTimeout(function () { ob.style.visibility = 'hidden'; ob._t = setTimeout(placeOhno, OH_GAP); }, OH_SHOW);
+    ob._t = setTimeout(function () { ob.style.visibility = 'hidden'; ob._t = setTimeout(placeOhno, rand(500, 1000)); }, rand(500, 1000)); // visible 0.5-1 s, hidden 0.5-1 s, both random
   }
   function startOhno() { clearTimeout(ob._t); placeOhno(); }
   function ohnoHit(ev) {
@@ -1118,8 +1126,8 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
     if (dispatch({ type: 'ohno', pid: ME })) toast('📣 OH-NO! กดโดนแล้ว', 1200); else toast('โดนปุ่มแล้ว แต่ตอนนี้ยังไม่ต้องกด');
   }
   if (window.PointerEvent) ob.addEventListener('pointerdown', ohnoHit); else ob.addEventListener('touchstart', ohnoHit, { passive: false });
-  try { var dk0 = JSON.parse(localStorage.getItem('jezDeck') || 'null'); if (dk0) ['sD2', 'sD3', 'sD4'].forEach(function (id, i) { if (+dk0[i] >= 4 && +dk0[i] <= 8) $(id).value = String(+dk0[i]); }); } catch (e) {}
-  window.__JEZ_TEST = { get: function () { return S; }, set: function (s) { S = s; render(); }, sched: function () { schedule(); }, stop: function () { timers.forEach(clearTimeout); timers = []; }, ohno: startOhno, bgm: BGM, sfx: SFX, pick: setPick, emote: emote, fly: flyCard, card: cardEl, pickFirst: function (n) { setPick(PP.PEOPLE.map(function (p) { return p.name; }).slice(0, n)); }, act: function (a) { return dispatch(a); }, order: function () { return handOrder.slice(); }, busy: busy, cfg: function (o) { if (o.bot != null) T_BOT_CARD = o.bot; if (o.hold != null) T_HOLD = o.hold; } };
+  try { var dk0 = JSON.parse(localStorage.getItem('jezDeck') || 'null'); if (dk0) { var dk1 = R.deckOpts({ d2: dk0[0], d3: dk0[1], d4: dk0[2] }); ['sD2', 'sD3', 'sD4'].forEach(function (id, i) { $(id).value = String(dk1['d' + (i + 2)]); }); if (dk1.d2 !== +dk0[0] || dk1.d3 !== +dk0[1] || dk1.d4 !== +dk0[2]) localStorage.setItem('jezDeck', JSON.stringify([dk1.d2, dk1.d3, dk1.d4])); } } catch (e) {}
+  window.__JEZ_TEST = { tut: function (i) { tutOpen(); tutShow(i); }, get: function () { return S; }, set: function (s) { S = s; render(); }, sched: function () { schedule(); }, stop: function () { timers.forEach(clearTimeout); timers = []; }, ohno: startOhno, bgm: BGM, sfx: SFX, pick: setPick, emote: emote, fly: flyCard, card: cardEl, pickFirst: function (n) { setPick(PP.PEOPLE.map(function (p) { return p.name; }).slice(0, n)); }, act: function (a) { return dispatch(a); }, order: function () { return handOrder.slice(); }, busy: busy, cfg: function (o) { if (o.bot != null) T_BOT_CARD = o.bot; if (o.hold != null) T_HOLD = o.hold; } };
   var SETUP = null, PICK = [], PP = window.JezPeople;
   // opponent picker: 11 people, choose 1..8 (selection order matters for seating)
   function buildPicker() {
@@ -1136,10 +1144,11 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
       };
       box.appendChild(l);
     });
+    var act = document.createElement('div'); act.className = 'pk pkAct'; act.appendChild($('startBtn')); act.appendChild($('tutBtn')); box.appendChild(act); // start + tutorial live in the empty 12th grid slot: visible without scrolling
     syncPicker();
   }
   function syncPicker() {
-    [].forEach.call($('picker').children, function (l) { var k = PICK.indexOf(l.dataset.name); l.classList.toggle('on', k >= 0); l.querySelector('input').checked = k >= 0; l.querySelector('.no').textContent = k + 1; });
+    [].forEach.call($('picker').querySelectorAll('.pk:not(.pkAct)'), function (l) { var k = PICK.indexOf(l.dataset.name); l.classList.toggle('on', k >= 0); l.querySelector('input').checked = k >= 0; l.querySelector('.no').textContent = k + 1; });
     $('pickN').textContent = PICK.length + '/8'; $('startBtn').disabled = PICK.length < 1;
   }
   buildPicker(); try { var nm0 = localStorage.getItem('jezName'); if ($('sName') && nm0) $('sName').value = nm0; } catch (e) {} // default 'ทุย'; a remembered name overrides it
@@ -1154,6 +1163,45 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
     $('lobbyTxt').textContent = 'ที่โต๊ะ ' + players.length + ' คน · คุณนั่งหัวโต๊ะ';
     layout(); renderSeats();
   };
+
+  // ---- tutorial: step-by-step Thai guide, illustrated with real card renders ----
+  var TUT = (function () {
+    var C = function (c, k, v) { return { c: c, k: k, v: v }; };
+    var cell = function (card, lbl, cls) { var d = document.createElement('div'); d.className = 'cell'; d.appendChild(cardEl(card, card.k === 'd4' ? card.wc : null)); if (lbl) { var s = document.createElement('div'); s.className = 'lbl ' + (cls || ''); s.innerHTML = lbl; d.appendChild(s); } return d; };
+    var pic = function (items) { var p = document.createElement('div'); p.className = 'tutPic'; items.forEach(function (it) { if (typeof it === 'string') { var s = document.createElement('div'); s.innerHTML = it; p.appendChild(s.childNodes.length === 1 ? s.firstChild : s); } else p.appendChild(it); }); return p; };
+    var A = '<span class="arr">→</span>';
+    return [
+      { t: 'ยินดีต้อนรับสู่ JEZ-OH-NO 🎉', h: '<p>เป้าหมาย: <b>ลงไพ่ในมือให้หมดก่อนคนอื่น</b> ใครเหลือคนสุดท้ายคือ <b>ที่โหล่</b> 🐃</p><p>แจกคนละ <b>7 ใบ</b> (ถ้าทั้งโต๊ะ 2–3 คน) หรือ <b>5 ใบ</b> (4 คนขึ้นไป) ไพ่ตัวเลขใช้ตัวอักษร <b>A</b> (เล็กสุด) ถึง <b>J</b> (ใหญ่สุด)</p>',
+        p: function () { return pic([cell(C('R', 'num', 1), 'A'), cell(C('Y', 'num', 5), 'E'), cell(C('B', 'num', 10), 'J'), cell(C('G', 'skip'), 'ข้าม'), cell(C('R', 'rev'), 'กลับ'), cell(C('B', 'd2'), '+2'), cell(C('Y', 'd3'), '+3'), cell(C(null, 'd4'), '+4')]); } },
+      { t: '① ลงไพ่: ลากขึ้นไปกองกลาง', h: '<p>ถึงตาคุณ (ป้ายชื่อเรืองสีเหลือง) ให้ <b>ลากไพ่จากมือขึ้นไปวางที่กองกลาง</b> ไพ่ที่ลงได้จะมีขอบเรือง</p><p>ลงได้เมื่อ <b>สีเดียวกัน</b> หรือ <b>ตัวอักษรเดียวกัน</b> หรือ <b>สัญลักษณ์เดียวกัน</b> (ข้าม/กลับ/+2/+3)</p><p>ลงผิดกติกา: ไพ่คืนมือ + <b>จั่ว 3 ใบ</b></p>',
+        p: function () { return pic([cell(C('G', 'num', 3), 'กองกลาง'), A, cell(C('G', 'num', 8), '✔ สีเดียวกัน', 'ok'), cell(C('R', 'num', 3), '✔ ตัวเดียวกัน', 'ok'), cell(C('B', 'num', 6), '✘ ลงไม่ได้', 'no')]); } },
+      { t: '② จั่ว: แตะครั้งเดียว', h: '<p>ไม่มีไพ่ลง? แตะปุ่ม <b>จั่ว</b> ครั้งเดียว ได้ 1 ใบ</p><p>ถ้าใบที่จั่วมา (หรือไพ่ในมือ) <b>ยังลงไม่ได้ ระบบผ่านให้อัตโนมัติ</b> ถ้าลงได้ จะลงเลย หรือกด <b>ผ่าน</b> ก็ได้</p>',
+        p: function () { return pic(['<span class="fake">จั่ว</span>', A, cell(C('Y', 'num', 2), 'ได้ 1 ใบ'), A, '<span class="lbl">ลงไม่ได้ = ผ่านอัตโนมัติ</span>']); } },
+      { t: '③ ไพ่บวกซ้อนกัน', h: '<p>เจอ +2 ตอบได้ด้วย <b>+2 (สีไหนก็ได้)</b>, +3 ตอบด้วย <b>+3</b>, +4 ตอบด้วย <b>+4</b> ยอดจะ <b>บวกสะสม</b> ไปเรื่อยๆ (ต่างชนิดซ้อนกันไม่ได้)</p><p>ไม่มีไพ่ต่อ: แตะ <b>จั่ว</b> รับทั้งกองแล้วเสียตา</p><p><b>+4</b> ลงได้ทุกเมื่อที่ไม่มีกองค้าง และต้อง <b>เลือกสีใหม่</b> (ห้ามสีเดิม) กองตั้งแต่ +6 ขึ้นไปมีเสียงระเบิด 💥</p>',
+        p: function () { return pic([cell(C('R', 'd2'), 'คนก่อน'), '<span class="arr">+</span>', cell(C('B', 'd2'), 'คุณต่อ'), A, '<span class="lbl">คนถัดไปโดน<br><b style="font-size:22px;color:#ff5252">+4</b></span>']); } },
+      { t: '④ กลับ / ข้าม สวนกอง', h: '<p>ตอนมีกองบวกค้างอยู่ ใช้ <b>กลับ</b> หรือ <b>ข้าม</b> ที่ <b>สีตรงกับสีปัจจุบัน</b> เพื่อ <b>ส่งกองต่อ</b> ได้ (ยอดไม่ลด) ถ้ากองบนสุดเป็นกลับ/ข้ามอยู่แล้ว ใช้ใบชนิดเดียวกันสีไหนก็ได้ สวนกันไปมาได้</p><p><b>กลับ</b> = เปลี่ยนทิศ กองเด้งกลับไปคนก่อนหน้า · <b>ข้าม</b> = ข้ามหนึ่งคน กองไปตกคนถัดไปอีกที</p>',
+        p: function () { return pic([cell(C('G', 'd2'), 'กอง +2 ค้าง'), A, cell(C('G', 'rev'), 'กลับสีเขียว', 'ok'), '<span class="lbl">หรือ</span>', cell(C('G', 'skip'), 'ข้ามสีเขียว', 'ok')]); } },
+      { t: '⑤ ตัด! ไพ่เหมือนกันเป๊ะ', h: '<p>มีไพ่ <b>เหมือนใบบนกองเป๊ะ</b> (สีเดียวกัน + ตัว/สัญลักษณ์เดียวกัน, +4 กับ +4 ได้เสมอ) <b>ลากลงได้ทันทีแม้ไม่ใช่ตาคุณ</b> = <b>ตัด</b> แล้วเกมเล่นต่อจากคุณ</p><p>ถ้าช้าไป มีคนลงตัดหน้า ไพ่จะ <b>เด้งกลับ</b> ต้องแตะเก็บคืน</p>',
+        p: function () { return pic([cell(C('Y', 'num', 7), 'กองกลาง'), A, cell(C('Y', 'num', 7), '✔ ตัดได้', 'ok'), cell(C('B', 'num', 7), '✘ คนละสี', 'no')]); } },
+      { t: '⑥ เหลือใบเดียว กด OH-NO!', h: '<p>พอเหลือไพ่ <b>1 ใบ</b> ต้องแตะปุ่ม <b>OH-NO</b> ที่ <b>โผล่-หายแบบสุ่มแถบด้านบนของจอ</b> (ปุ่มจะเป็นสีแดงสดเมื่อถึงคราวต้องกด)</p><p>ถ้ายังไม่กด แล้วมีคนอื่นลงไพ่ใบถัดไป = โดนจับได้ <b>จั่ว 5 ใบ</b></p>',
+        p: function () { return pic([cell(C('R', 'num', 4), 'เหลือใบเดียว'), A, '<span class="oh">OH-NO</span>', '<span class="lbl">ไม่ทัน = จั่ว 5</span>']); } },
+      { t: '⑦ รอบ คะแนน และที่โหล่', h: '<p><b>โหมด 1 หาที่โหล่</b>: เล่นจนเหลือคนสุดท้าย ที่ 1 ได้ 10 แต้ม ที่ 2 ได้ 5, ที่ 3 ได้ 4, ... ลดลงทีละ 1 คนสุดท้าย (ที่โหล่) ได้ 0</p><p><b>โหมด 2 นับคะแนนไพ่</b>: คนแรกที่ไพ่หมดจบรอบทันที ได้แต้มจากไพ่ที่ค้างมือคนอื่น (ตัวอักษร 1, ข้าม/กลับ/+2/+3 = 5, +4 = 10)</p><p>รอบแรกจั่วหาคนเริ่ม (ตัวอักษรสูงสุด) รอบต่อไปผู้ชนะรอบก่อนเริ่ม ตั้งจำนวนรอบ/เป้าแต้มได้ที่หน้าแรก</p>' },
+      { t: '⑧ มงกุฎ 👑 และ ควาย 🐃', h: '<p>ตั้งแต่รอบที่ 2 ป้ายชื่อจะมีไอคอน:</p><p><b>มงกุฎ</b> = ที่ 1 ของรอบที่แล้ว<br><b>หัวควาย</b> = ที่โหล่ (คนสุดท้าย) ของรอบที่แล้ว</p>',
+        p: function () { return pic(['<div class="cell"><img src=\'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA1MiI+CiA8ZGVmcz4KICA8bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmYzYTAiLz48c3RvcCBvZmZzZXQ9Ii40NSIgc3RvcC1jb2xvcj0iI2ZmZDIzZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2M5OGEwMCIvPjwvbGluZWFyR3JhZGllbnQ+CiA8L2RlZnM+CiA8cGF0aCBkPSJNNiAxOCBMMTggMzAgTDMyIDggTDQ2IDMwIEw1OCAxOCBMNTMgNDIgTDExIDQyIFoiIGZpbGw9InVybCgjZykiIHN0cm9rZT0iIzdhNGIwMCIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KIDxyZWN0IHg9IjEwIiB5PSI0MCIgd2lkdGg9IjQ0IiBoZWlnaHQ9IjgiIHJ4PSIyIiBmaWxsPSJ1cmwoI2cpIiBzdHJva2U9IiM3YTRiMDAiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiA8Y2lyY2xlIGN4PSI2IiBjeT0iMTYiIHI9IjQiIGZpbGw9IiNmZmUwNjYiIHN0cm9rZT0iIzdhNGIwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiA8Y2lyY2xlIGN4PSIzMiIgY3k9IjYiIHI9IjQuNSIgZmlsbD0iI2ZmZTA2NiIgc3Ryb2tlPSIjN2E0YjAwIiBzdHJva2Utd2lkdGg9IjIiLz4KIDxjaXJjbGUgY3g9IjU4IiBjeT0iMTYiIHI9IjQiIGZpbGw9IiNmZmUwNjYiIHN0cm9rZT0iIzdhNGIwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CiA8Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI0IiBmaWxsPSIjZTUzOTM1IiBzdHJva2U9IiM3YTEwMTAiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiA8Y2lyY2xlIGN4PSIxOSIgY3k9IjM2IiByPSIyLjgiIGZpbGw9IiMxZTg4ZTUiIHN0cm9rZT0iIzBkM2M3MyIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KIDxjaXJjbGUgY3g9IjQ1IiBjeT0iMzYiIHI9IjIuOCIgZmlsbD0iIzFlODhlNSIgc3Ryb2tlPSIjMGQzYzczIiBzdHJva2Utd2lkdGg9IjEuMiIvPgogPHBhdGggZD0iTTE0IDQ0IEg1MCIgc3Ryb2tlPSIjZmZmN2MyIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iLjgiLz4KPC9zdmc+Cg==\' alt=""><span class="lbl">ที่ 1 รอบก่อน</span></div>', '<div class="cell"><img src=\'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgNzIiPgogPCEtLSB3YXRlci1idWZmYWxvIGhlYWQsIGZyb250IHZpZXc6IGh1Z2UgY3Jlc2NlbnQgaG9ybnMsIHNvbGlkIGRhcmsgaGVhZDsgdGhpY2sgd2hpdGUgcmltIHNvIGl0IHJlYWRzIGF0IDIwIHB4IC0tPgogPGcgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjciIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgZmlsbD0ibm9uZSI+CiAgPHBhdGggZD0iTTM2IDI0IEMyMiAyNiA3IDIyIDMgOCBDOSAxNCAyMCAxNCAzNCAxMyIvPgogIDxwYXRoIGQ9Ik02NCAyNCBDNzggMjYgOTMgMjIgOTcgOCBDOTEgMTQgODAgMTQgNjYgMTMiLz4KICA8cGF0aCBkPSJNMzQgMTQgQzQwIDkgNjAgOSA2NiAxNCBDNzAgMjQgNjggMzYgNjQgNDYgQzYyIDU4IDU3IDY4IDUwIDY4IEM0MyA2OCAzOCA1OCAzNiA0NiBDMzIgMzYgMzAgMjQgMzQgMTQgWiIvPgogIDxwYXRoIGQ9Ik0zMyAyNiBDMjQgMjYgMTkgMzEgMjIgMzQgQzI3IDM2IDMzIDMzIDM1IDMwIFoiLz48cGF0aCBkPSJNNjcgMjYgQzc2IDI2IDgxIDMxIDc4IDM0IEM3MyAzNiA2NyAzMyA2NSAzMCBaIi8+CiA8L2c+CiA8ZyBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KICA8cGF0aCBkPSJNMzYgMjQgQzIyIDI2IDcgMjIgMyA4IEM5IDE0IDIwIDE0IDM0IDEzIFoiIGZpbGw9IiNlOGRjYzAiLz4KICA8cGF0aCBkPSJNNjQgMjQgQzc4IDI2IDkzIDIyIDk3IDggQzkxIDE0IDgwIDE0IDY2IDEzIFoiIGZpbGw9IiNlOGRjYzAiLz4KICA8cGF0aCBkPSJNMzMgMjYgQzI0IDI2IDE5IDMxIDIyIDM0IEMyNyAzNiAzMyAzMyAzNSAzMCBaIiBmaWxsPSIjMmEyYTJhIi8+PHBhdGggZD0iTTY3IDI2IEM3NiAyNiA4MSAzMSA3OCAzNCBDNzMgMzYgNjcgMzMgNjUgMzAgWiIgZmlsbD0iIzJhMmEyYSIvPgogIDxwYXRoIGQ9Ik0zNCAxNCBDNDAgOSA2MCA5IDY2IDE0IEM3MCAyNCA2OCAzNiA2NCA0NiBDNjIgNTggNTcgNjggNTAgNjggQzQzIDY4IDM4IDU4IDM2IDQ2IEMzMiAzNiAzMCAyNCAzNCAxNCBaIiBmaWxsPSIjMWMxYzFjIi8+CiAgPGVsbGlwc2UgY3g9IjUwIiBjeT0iNTkiIHJ4PSIxMSIgcnk9IjgiIGZpbGw9IiM0YTRhNGEiLz4KIDwvZz4KIDxlbGxpcHNlIGN4PSI0NiIgY3k9IjYwIiByeD0iMi4yIiByeT0iMi44IiBmaWxsPSIjMDAwIi8+PGVsbGlwc2UgY3g9IjU0IiBjeT0iNjAiIHJ4PSIyLjIiIHJ5PSIyLjgiIGZpbGw9IiMwMDAiLz4KIDxjaXJjbGUgY3g9IjQyIiBjeT0iMzIiIHI9IjMuNiIgZmlsbD0iI2ZmZiIvPjxjaXJjbGUgY3g9IjU4IiBjeT0iMzIiIHI9IjMuNiIgZmlsbD0iI2ZmZiIvPgogPGNpcmNsZSBjeD0iNDIuNiIgY3k9IjMyLjYiIHI9IjEuOCIgZmlsbD0iIzAwMCIvPjxjaXJjbGUgY3g9IjU4LjYiIGN5PSIzMi42IiByPSIxLjgiIGZpbGw9IiMwMDAiLz4KIDxwYXRoIGQ9Ik00MCAyMiBDNDYgMTkgNTQgMTkgNjAgMjIiIHN0cm9rZT0iIzY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+Cjwvc3ZnPgo=\' alt=""><span class="lbl">ที่โหล่รอบก่อน</span></div>']); } },
+      { t: '⑨ ความยาก', h: '<p><b>ง่าย</b>: บอทคิด 3–6 วิ ตัดแค่บางครั้ง (ครึ่งๆ) ช้า 2–6.5 วิ</p><p><b>ยาก</b>: บอทลง 1–3 วิ และ <b>ตัดทุกครั้งที่ตัดได้</b> ภายใน 2–3 วิ</p><p>เลือกคนร่วมโต๊ะ 1–8 คน แล้วกด <b>ไปที่โต๊ะ</b> ขอให้สนุก! 🃏</p>' }
+    ];
+  })(), tutI = 0;
+  function tutShow(i) {
+    tutI = Math.max(0, Math.min(TUT.length - 1, i)); var st = TUT[tutI];
+    $('tutTitle').textContent = st.t; var b = $('tutBody'); b.innerHTML = st.h; if (st.p) b.insertBefore(st.p(), b.firstChild); b.scrollTop = 0;
+    $('tutDots').textContent = (tutI + 1) + ' / ' + TUT.length; $('tutBack').disabled = tutI === 0; $('tutBack').style.opacity = tutI === 0 ? .4 : 1;
+    $('tutNext').textContent = tutI === TUT.length - 1 ? 'เริ่มเล่น ✔' : 'ถัดไป ▶';
+  }
+  function tutOpen() { $('tut').classList.add('on'); tutShow(0); }
+  function tutClose() { $('tut').classList.remove('on'); }
+  $('tutBtn').onclick = tutOpen; $('tutClose').onclick = tutClose; $('tutBack').onclick = function () { tutShow(tutI - 1); };
+  $('tutNext').onclick = function () { if (tutI === TUT.length - 1) tutClose(); else tutShow(tutI + 1); };
+  $('tut').addEventListener('click', function (e) { if (e.target === $('tut')) tutClose(); });
   $('beginBtn').onclick = function () {
     S = R.createMatch(SETUP.settings, SETUP.players, (Math.random() * 4e9) >>> 0);
     $('game').classList.remove('lobby'); layout(); $('table').classList.add('on');
