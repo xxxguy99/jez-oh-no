@@ -309,10 +309,21 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
         var t = r.discard.pop(); r.deck = shuffle(s, r.discard); r.discard = [t];
         ev.push({ t: 'reshuffle', n: r.deck.length });
       }
-      r.hands[p].push(r.deck.pop()); got++;
+      var c = r.deck.pop(); c = rigDraw(s, p, c); r.hands[p].push(c); got++;
     }
     syncOhno(r, p);
     return got;
+  }
+  // hidden endgame helper: ONLY when exactly 2 players are still active and BOTH are bots (the human is out),
+  // a drawn +2/+3 is swapped (70%, or always when the drawer already holds >5 cards) with a random non-+2/+3 card
+  // from deeper in the draw pile. Card is exchanged in place (no loss/dupes); seeded RNG keeps it deterministic.
+  function botDuel(s) { var r = s.round, a = s.players.filter(function (q) { return active(r, q.id); }); return a.length === 2 && a[0].isBot && a[1].isBot; }
+  function rigDraw(s, p, c) {
+    var r = s.round; if ((c.k !== 'd2' && c.k !== 'd3') || !active(r, p) || !botDuel(s)) return c;
+    if (!(r.hands[p].length > 5 || rnd(s) < 0.7)) return c;
+    var alt = []; for (var i = 0; i < r.deck.length; i++) if (r.deck[i].k !== 'd2' && r.deck[i].k !== 'd3') alt.push(i);
+    if (!alt.length) return c; // last resort: nothing else left in the pile
+    var j = alt[Math.floor(rnd(s) * alt.length)], o = r.deck[j]; r.deck[j] = c; s.rigged = (s.rigged || 0) + 1; return o;
   }
   function syncOhno(r, p) { if (r.hands[p].length !== 1) { r.ohnoDue[p] = false; r.ohnoCalled[p] = false; } }
 
@@ -454,7 +465,7 @@ table{width:100%;border-collapse:collapse}td,th{padding:4px;border-bottom:1px so
 
   var api = { COLORS: COLORS, RANKS: RANKS, TOTAL: TOTAL, buildDeck: buildDeck, deckSize: deckSize, deckOpts: deckOpts, createMatch: createMatch, apply: apply,
     canPlay: canPlay, legalPlays: legalPlays, isTwin: isTwin, cardPoints: cardPoints, label: label, botAction: botAction,
-    countCards: countCards, top: function (s) { return top(s.round); } };
+    countCards: countCards, botDuel: botDuel, top: function (s) { return top(s.round); } };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.JezRules = api;
 })(this);
 
